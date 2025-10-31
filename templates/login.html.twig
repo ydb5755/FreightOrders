@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+  <form method="post" action="/login">
+    <input type="hidden" name="{{ csrf.name }}" value="{{ csrf.value }}">
+    <label>Email <input type="email" name="email" required></label><br>
+    <label>Password <input type="password" name="password" required></label><br>
+    <button type="submit">Sign in</button>
+  </form>
+</body>
+</html>
