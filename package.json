@@ -3,6 +3,7 @@
 	"cypress": "^15.5.0"
     },
     "scripts": {
-	"cy:open": "cypress open"
+	"cy:open": "cypress open",
+	"db:seed": "php storage/seedDb.php"
     }
 }
