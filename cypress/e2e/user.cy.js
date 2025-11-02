@@ -17,5 +17,6 @@ describe('user login', () => {
         cy.get('input[name=email]').type('test@test.com')
         cy.get('input[name=password]').type('wrongPassword{enter}')
         cy.url().should('include', '/login')
+        cy.get('input')
     })
 })
