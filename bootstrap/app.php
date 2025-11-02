@@ -17,9 +17,10 @@ $responseFactory = $app->getResponseFactory();
 $csrf = new CsrfMiddleware($responseFactory);
 $csrfTwig = new CsrfToTwigMiddleware($twig);
 $auth = new AuthMiddleware();
-$app->add($csrf);
-$app->add($csrfTwig);
+
 $app->add(TwigMiddleware::create($app, $twig));
+$app->add($csrfTwig);
+$app->add($csrf);
 $app->addErrorMiddleware(true, false, false);
 
 $app->get('/', [UserController::class, 'home']);
