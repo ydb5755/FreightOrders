@@ -1,3 +1,4 @@
 
 /vendor/
 /storage/*.json
+/node_modules/
