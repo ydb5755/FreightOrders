@@ -1,4 +1,5 @@
 <?php
+session_save_path(__DIR__.'/../storage/sessions/');
 session_start([
   'cookie_httponly' => true,
   'cookie_secure'   => !empty($_SERVER['HTTPS']),
