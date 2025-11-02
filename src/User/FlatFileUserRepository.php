@@ -6,7 +6,7 @@ class FlatFileUserRepository implements UserRepository
 {
     private string $pathToUserFile = __DIR__.'/../../storage/users.json';
 
-    private function getUserData(): array
+    private function getUsersData(): array
     {
         $json = file_get_contents($this->pathToUserFile);
         $data = json_decode($json, true);
@@ -16,7 +16,7 @@ class FlatFileUserRepository implements UserRepository
 
     public function findByEmail(string $email): ?User
     {
-        $data = $this->getUserData();
+        $data = $this->getUsersData();
         foreach ($data as $user) {
             if ($user['email'] === $email) {
                 return new User($user['email'], $user['password']);
