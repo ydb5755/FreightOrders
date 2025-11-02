@@ -22,6 +22,7 @@ class FlatFileUserRepository implements UserRepository
                 return new User($user['email'], $user['password']);
             }
         }
+        return null;
     }
 
     public function save(User $user): User
