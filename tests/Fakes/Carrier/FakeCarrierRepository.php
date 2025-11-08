@@ -36,4 +36,14 @@ class FakeCarrierRepository implements CarrierRepository
     {
         return count($this->existingCarriers);
     }
+
+    public function getAll(): array
+    {
+        return array_map(function (Carrier $carrier) {
+            return new Carrier(
+                $carrier->getId(),
+                $carrier->getEmail()
+            );
+        }, $this->existingCarriers);
+    }
 }
