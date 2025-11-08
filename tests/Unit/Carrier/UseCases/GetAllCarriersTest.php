@@ -12,10 +12,13 @@ class GetAllCarriersTest extends TestCase
     public function test_get_one_carrier(): void
     {
         $repo = new FakeCarrierRepository();
-        $repo->save(new Carrier(0, 'email@email.com'));
+        $repo->save(new Carrier(0, 'email@email.com', 'test Company'));
         $useCase = new GetAllCarriers($repo);
         $response = $useCase->execute();
-        $this->assertEquals([new Carrier(0, 'email@email.com')], $response);
+        $this->assertEquals(
+            [new Carrier(0, 'email@email.com', 'test Company')],
+            $response
+        );
     }
 
     public function test_get_zero_carriers(): void

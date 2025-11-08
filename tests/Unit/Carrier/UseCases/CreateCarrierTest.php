@@ -12,8 +12,9 @@ class CreateCarrierTest extends TestCase
     public function test_carrier_is_created(): void
     {
         $email = 'joe@shmoe.com';
+        $company = 'test company';
         $carrierRepo = new FakeCarrierRepository();
-        $dto = new CreateCarrierRequest($email);
+        $dto = new CreateCarrierRequest($email, $company);
         $useCase = new CreateCarrier($dto, $carrierRepo);
         $response = $useCase->execute();
         $foundCarrier = $carrierRepo->find($response->getId());

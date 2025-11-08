@@ -13,7 +13,11 @@ class FakeCarrierRepository implements CarrierRepository
     {
         foreach ($this->existingCarriers as $carrier) {
             if ($carrier->getId() === $id) {
-                return new Carrier($id, $carrier->getEmail());
+                return new Carrier(
+                    $id,
+                    $carrier->getEmail(),
+                    $carrier->getCompanyName(),
+                );
             }
         }
 
@@ -29,7 +33,11 @@ class FakeCarrierRepository implements CarrierRepository
         }
         $this->existingCarriers[$id] = $carrier;
 
-        return new Carrier($id, $carrier->getEmail());
+        return new Carrier(
+            $id,
+            $carrier->getEmail(),
+            $carrier->getCompanyName(),
+        );
     }
 
     private function autoIncrementId(): int
@@ -42,7 +50,8 @@ class FakeCarrierRepository implements CarrierRepository
         return array_map(function (Carrier $carrier) {
             return new Carrier(
                 $carrier->getId(),
-                $carrier->getEmail()
+                $carrier->getEmail(),
+                $carrier->getCompanyName(),
             );
         }, $this->existingCarriers);
     }
