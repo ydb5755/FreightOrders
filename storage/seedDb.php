@@ -6,7 +6,21 @@ $users = [
         'password' => password_hash('password', PASSWORD_DEFAULT),
     ],
 ];
-$path = __DIR__.'/../storage/users.json';
-$data = json_encode($users, JSON_PRETTY_PRINT);
 
-file_put_contents($path, $data);
+$carriers = [
+    [
+        'id' => 0,
+        'email' => 'carrier@test.com',
+        'companyName' => 'test Company',
+    ],
+];
+
+$fileDataMap = [
+    'users.json' => $users,
+    'carriers.json' => $carriers,
+];
+
+foreach ($fileDataMap as $file => $data) {
+    $path = __DIR__."/$file";
+    file_put_contents($path, json_encode($data, JSON_PRETTY_PRINT));
+}
