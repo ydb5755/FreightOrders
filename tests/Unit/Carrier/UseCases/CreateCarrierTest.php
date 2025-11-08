@@ -13,7 +13,7 @@ class CreateCarrierTest extends TestCase
     {
         $email = 'joe@shmoe.com';
         $carrierRepo = new FakeCarrierRepository();
-        $dto = new CreateCarrierRequest(null, $email);
+        $dto = new CreateCarrierRequest($email);
         $useCase = new CreateCarrier($dto, $carrierRepo);
         $response = $useCase->execute();
         $foundCarrier = $carrierRepo->find($response->getId());

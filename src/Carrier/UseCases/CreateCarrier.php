@@ -14,8 +14,8 @@ class CreateCarrier
 
     public function execute(): Carrier
     {
-        $carrier = new Carrier($this->dto->id, $this->dto->email);
+        $carrier = new Carrier(null, $this->dto->email);
 
-        return $this->carrierRepo->save($carrier); 
+        return $this->carrierRepo->save($carrier);
     }
 }
