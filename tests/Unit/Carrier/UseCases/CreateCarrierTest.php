@@ -19,5 +19,6 @@ class CreateCarrierTest extends TestCase
         $response = $useCase->execute();
         $foundCarrier = $carrierRepo->find($response->getId());
         $this->assertEquals($email, $foundCarrier->getEmail());
+        $this->assertEquals($company, $foundCarrier->getCompanyName());
     }
 }
