@@ -4,6 +4,7 @@
     },
     "scripts": {
 	"cy:open": "cypress open",
-	"db:seed": "php storage/seedDb.php"
+	"db:seed": "php storage/seedDb.php",
+	"db:wipe": "php storage/wipeDb.php"
     }
 }
