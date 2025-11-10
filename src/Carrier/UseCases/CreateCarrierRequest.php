@@ -7,5 +7,8 @@ class CreateCarrierRequest
     public function __construct(
         public string $email,
         public string $companyName,
+        public string $contactPerson,
+        public string $phoneNumber,
+        public string $notes,
     ) {}
 }

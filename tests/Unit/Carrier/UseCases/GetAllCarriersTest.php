@@ -11,12 +11,31 @@ class GetAllCarriersTest extends TestCase
 {
     public function test_get_one_carrier(): void
     {
+        $email = 'email@email.com';
+        $company = 'test Company';
+        $contactPerson = 'joe shmoe';
+        $phoneNumber = '123456798';
+        $notes = 'some notes';
         $repo = new FakeCarrierRepository();
-        $repo->save(new Carrier(0, 'email@email.com', 'test Company'));
+        $repo->save(new Carrier(
+            0,
+            $email,
+            $company,
+            $contactPerson,
+            $phoneNumber,
+            $notes,
+        ));
         $useCase = new GetAllCarriers($repo);
         $response = $useCase->execute();
         $this->assertEquals(
-            [new Carrier(0, 'email@email.com', 'test Company')],
+            [new Carrier(
+                0,
+                $email,
+                $company,
+                $contactPerson,
+                $phoneNumber,
+                $notes,
+            )],
             $response
         );
     }

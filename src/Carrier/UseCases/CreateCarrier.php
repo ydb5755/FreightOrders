@@ -17,7 +17,10 @@ class CreateCarrier
         $carrier = new Carrier(
             null,
             $this->dto->email,
-            $this->dto->companyName
+            $this->dto->companyName,
+            $this->dto->contactPerson,
+            $this->dto->phoneNumber,
+            $this->dto->notes,
         );
 
         return $this->carrierRepo->save($carrier);

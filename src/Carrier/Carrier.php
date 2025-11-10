@@ -8,6 +8,9 @@ class Carrier
         private ?int $id,
         private string $email,
         private string $companyName,
+        private string $contactPerson,
+        private string $phoneNumber,
+        private string $notes,
     ) {}
 
     public function getId(): ?int
@@ -28,5 +31,20 @@ class Carrier
     public function getCompanyName(): string
     {
         return $this->companyName;
+    }
+
+    public function getContactPerson(): string
+    {
+        return $this->contactPerson;
+    }
+
+    public function getPhoneNumber(): string
+    {
+        return $this->phoneNumber;
+    }
+
+    public function getNotes(): string
+    {
+        return $this->notes;
     }
 }

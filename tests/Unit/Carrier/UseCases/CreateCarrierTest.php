@@ -13,12 +13,24 @@ class CreateCarrierTest extends TestCase
     {
         $email = 'joe@shmoe.com';
         $company = 'test company';
+        $contactPerson = 'Joe Shmoe';
+        $phoneNumber = '132456798';
+        $notes = 'some notes';
         $carrierRepo = new FakeCarrierRepository();
-        $dto = new CreateCarrierRequest($email, $company);
+        $dto = new CreateCarrierRequest(
+            $email,
+            $company,
+            $contactPerson,
+            $phoneNumber,
+            $notes,
+        );
         $useCase = new CreateCarrier($dto, $carrierRepo);
         $response = $useCase->execute();
         $foundCarrier = $carrierRepo->find($response->getId());
         $this->assertEquals($email, $foundCarrier->getEmail());
         $this->assertEquals($company, $foundCarrier->getCompanyName());
+        $this->assertEquals($contactPerson, $foundCarrier->getContactPerson());
+        $this->assertEquals($phoneNumber, $foundCarrier->getPhoneNumber());
+        $this->assertEquals($notes, $foundCarrier->getNotes());
     }
 }

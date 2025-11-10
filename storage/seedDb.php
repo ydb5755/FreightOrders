@@ -12,6 +12,9 @@ $carriers = [
         'id' => 0,
         'email' => 'carrier@test.com',
         'companyName' => 'test Company',
+        'contactPerson' => 'Joe Shmoe',
+        'phoneNumber' => '123456789',
+        'notes' => 'some notes',
     ],
 ];
 

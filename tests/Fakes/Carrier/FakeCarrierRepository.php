@@ -17,6 +17,9 @@ class FakeCarrierRepository implements CarrierRepository
                     $id,
                     $carrier->getEmail(),
                     $carrier->getCompanyName(),
+                    $carrier->getContactPerson(),
+                    $carrier->getPhoneNumber(),
+                    $carrier->getNotes(),
                 );
             }
         }
@@ -37,6 +40,9 @@ class FakeCarrierRepository implements CarrierRepository
             $id,
             $carrier->getEmail(),
             $carrier->getCompanyName(),
+            $carrier->getContactPerson(),
+            $carrier->getPhoneNumber(),
+            $carrier->getNotes(),
         );
     }
 
@@ -52,6 +58,9 @@ class FakeCarrierRepository implements CarrierRepository
                 $carrier->getId(),
                 $carrier->getEmail(),
                 $carrier->getCompanyName(),
+                $carrier->getContactPerson(),
+                $carrier->getPhoneNumber(),
+                $carrier->getNotes(),
             );
         }, $this->existingCarriers);
     }

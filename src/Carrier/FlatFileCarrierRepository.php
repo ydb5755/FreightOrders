@@ -31,6 +31,9 @@ class FlatFileCarrierRepository implements CarrierRepository
                     $jsonCarrier['id'],
                     $jsonCarrier['email'],
                     $jsonCarrier['companyName'],
+                    $jsonCarrier['contactPerson'],
+                    $jsonCarrier['phoneNumber'],
+                    $jsonCarrier['notes'],
                 );
             }
         }
@@ -38,6 +41,9 @@ class FlatFileCarrierRepository implements CarrierRepository
             'id' => $this->autoIncrementId($data),
             'email' => $carrier->getEmail(),
             'companyName' => $carrier->getCompanyName(),
+            'contactPerson' => $carrier->getContactPerson(),
+            'phoneNumber' => $carrier->getPhoneNumber(),
+            'notes' => $carrier->getNotes(),
         ];
         $data[] = $newCarrier;
         file_put_contents(
@@ -48,6 +54,9 @@ class FlatFileCarrierRepository implements CarrierRepository
             $newCarrier['id'],
             $newCarrier['email'],
             $newCarrier['companyName'],
+            $newCarrier['contactPerson'],
+            $newCarrier['phoneNumber'],
+            $newCarrier['notes'],
         );
     }
 
@@ -60,7 +69,10 @@ class FlatFileCarrierRepository implements CarrierRepository
             return new Carrier(
                 $carrier['id'],
                 $carrier['email'],
-                $carrier['companyName']
+                $carrier['companyName'],
+                $carrier['contactPerson'],
+                $carrier['phoneNumber'],
+                $carrier['notes'],
             );
         }, $this->getCarrierData());
     }

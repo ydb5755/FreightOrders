@@ -32,7 +32,10 @@ class CarrierController
         $body = $request->getParsedBody();
         $dto = new CreateCarrierRequest(
             $body['email'],
-            $body['companyName'],
+            $body['company_name'],
+            $body['contact_person'],
+            $body['phone_number'],
+            $body['notes'],
         );
         $useCase = new CreateCarrier($dto, $this->carrierRepo);
         $useCase->execute();
