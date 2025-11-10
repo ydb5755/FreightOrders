@@ -7,7 +7,7 @@
   <form action="/create_carrier" method="POST">
     <input type="hidden" name="csrf_name" value="{{ csrf.name }}">
     <input type="hidden" name="csrf_value" value="{{ csrf.value }}">
-    <input name="companyName" type="text"/>
+    <input name="company_name" type="text"/>
     <input name="contact_person" type="text"/>
     <input name="email" type="email"/>
     <input name="phone_number" type="text"/>
@@ -31,9 +31,9 @@
       <tr>
         <td>{{ c.id }}</td>
         <td>{{ c.companyName }}</td>
-        <td>{{ c.contact_person }}</td>
+        <td>{{ c.contactPerson }}</td>
         <td>{{ c.email }}</td>
-        <td>{{ c.phone_number }}</td>
+        <td>{{ c.phoneNumber }}</td>
         <td>{{ c.notes }}</td>
       </tr>
       {% endfor %}
