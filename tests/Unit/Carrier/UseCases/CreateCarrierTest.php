@@ -16,6 +16,8 @@ class CreateCarrierTest extends TestCase
         $contactPerson = 'Joe Shmoe';
         $phoneNumber = '132456798';
         $notes = 'some notes';
+        $loadProfile = 'LTL/FTL'; // Less than full trailer load and full trailer load
+        $countriesServing = ['USA', 'FRA', 'UK'];
         $carrierRepo = new FakeCarrierRepository();
         $dto = new CreateCarrierRequest(
             $email,
@@ -23,6 +25,8 @@ class CreateCarrierTest extends TestCase
             $contactPerson,
             $phoneNumber,
             $notes,
+            $loadProfile,
+            $countriesServing,
         );
         $useCase = new CreateCarrier($dto, $carrierRepo);
         $response = $useCase->execute();
@@ -32,5 +36,7 @@ class CreateCarrierTest extends TestCase
         $this->assertEquals($contactPerson, $foundCarrier->getContactPerson());
         $this->assertEquals($phoneNumber, $foundCarrier->getPhoneNumber());
         $this->assertEquals($notes, $foundCarrier->getNotes());
+        $this->assertEquals($loadProfile, $foundCarrier->getLoadProfile());
+        $this->assertEquals($countriesServing, $foundCarrier->getCountriesServing());
     }
 }

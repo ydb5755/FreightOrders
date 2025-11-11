@@ -7,6 +7,9 @@ use FreightQuote\Carrier\CarrierRepository;
 
 class FakeCarrierRepository implements CarrierRepository
 {
+    /**
+     * @var Carrier[]
+     */
     private array $existingCarriers = [];
 
     public function find(int $id): ?Carrier
@@ -20,6 +23,8 @@ class FakeCarrierRepository implements CarrierRepository
                     $carrier->getContactPerson(),
                     $carrier->getPhoneNumber(),
                     $carrier->getNotes(),
+                    $carrier->getLoadProfile(),
+                    $carrier->getCountriesServing(),
                 );
             }
         }
@@ -43,6 +48,8 @@ class FakeCarrierRepository implements CarrierRepository
             $carrier->getContactPerson(),
             $carrier->getPhoneNumber(),
             $carrier->getNotes(),
+            $carrier->getLoadProfile(),
+            $carrier->getCountriesServing(),
         );
     }
 
@@ -61,6 +68,8 @@ class FakeCarrierRepository implements CarrierRepository
                 $carrier->getContactPerson(),
                 $carrier->getPhoneNumber(),
                 $carrier->getNotes(),
+                $carrier->getLoadProfile(),
+                $carrier->getCountriesServing(),
             );
         }, $this->existingCarriers);
     }

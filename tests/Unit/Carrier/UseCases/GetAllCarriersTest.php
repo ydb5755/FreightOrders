@@ -16,6 +16,8 @@ class GetAllCarriersTest extends TestCase
         $contactPerson = 'joe shmoe';
         $phoneNumber = '123456798';
         $notes = 'some notes';
+        $loadProfile = 'LTL/FTL';
+        $countriesServing = ['USA', 'FRA', 'UK'];
         $repo = new FakeCarrierRepository();
         $repo->save(new Carrier(
             0,
@@ -24,6 +26,8 @@ class GetAllCarriersTest extends TestCase
             $contactPerson,
             $phoneNumber,
             $notes,
+            $loadProfile,
+            $countriesServing,
         ));
         $useCase = new GetAllCarriers($repo);
         $response = $useCase->execute();
@@ -35,6 +39,8 @@ class GetAllCarriersTest extends TestCase
                 $contactPerson,
                 $phoneNumber,
                 $notes,
+                $loadProfile,
+                $countriesServing,
             )],
             $response
         );

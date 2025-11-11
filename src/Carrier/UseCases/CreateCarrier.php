@@ -21,6 +21,8 @@ class CreateCarrier
             $this->dto->contactPerson,
             $this->dto->phoneNumber,
             $this->dto->notes,
+            $this->dto->loadProfile,
+            $this->dto->countriesServing,
         );
 
         return $this->carrierRepo->save($carrier);

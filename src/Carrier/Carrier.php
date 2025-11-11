@@ -11,6 +11,8 @@ class Carrier
         private string $contactPerson,
         private string $phoneNumber,
         private string $notes,
+        private string $loadProfile,
+        private array $countriesServing,
     ) {}
 
     public function getId(): ?int
@@ -46,5 +48,15 @@ class Carrier
     public function getNotes(): string
     {
         return $this->notes;
+    }
+
+    public function getLoadProfile(): string
+    {
+        return $this->loadProfile;
+    }
+
+    public function getCountriesServing(): array
+    {
+        return $this->countriesServing;
     }
 }

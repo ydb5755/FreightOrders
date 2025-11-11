@@ -10,5 +10,7 @@ class CreateCarrierRequest
         public string $contactPerson,
         public string $phoneNumber,
         public string $notes,
+        public string $loadProfile,
+        public array $countriesServing,
     ) {}
 }
