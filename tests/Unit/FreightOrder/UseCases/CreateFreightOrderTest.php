@@ -33,6 +33,7 @@ class CreateFreightOrderTest extends TestCase
             loadDetails: 'some details',
             notes: 'some notes',
             fileAttachments: ['path/to/file', 'another/path/file'],
+            carrierIds: [0, 1, 2],
         );
         $createdFreightOrder = $this->useCase->execute($dto);
         $foundFreightOrder = $this->freightOrderRepo->find(
@@ -46,6 +47,7 @@ class CreateFreightOrderTest extends TestCase
         $this->assertEquals($dto->loadDetails, $foundFreightOrder->getLoadDetails());
         $this->assertEquals($dto->notes, $foundFreightOrder->getNotes());
         $this->assertEquals($dto->fileAttachments, $foundFreightOrder->getFileAttachments());
+        $this->assertEquals($dto->carrierIds, $foundFreightOrder->getCarrierIds());
     }
 
     public function test_carrier_is_connected_to_order(): void

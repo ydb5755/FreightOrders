@@ -15,6 +15,7 @@ class FreightOrder
         private string $loadDetails,
         private string $notes,
         private array $fileAttachments,
+        private array $carrierIds,
     ) {}
 
     public function getId(): ?int
@@ -60,5 +61,10 @@ class FreightOrder
     public function getFileAttachments(): array
     {
         return $this->fileAttachments;
+    }
+
+    public function getCarrierIds(): array
+    {
+        return $this->carrierIds;
     }
 }
