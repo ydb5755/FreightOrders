@@ -62,7 +62,7 @@ class CreateFreightOrderTest extends TestCase
             notes: 'some notes',
             loadProfile: 'LTL/FTL',
             countriesServing: ['USA'],
-            freightOrders: [],
+            freightOrderIds: [],
         ));
         $dto = new CreateFreightOrderRequestDTO(
             shipFrom: 'ny',
@@ -78,7 +78,7 @@ class CreateFreightOrderTest extends TestCase
         $foundCarrier = $this->carrierRepo->find($carrierId);
         $this->assertEquals(
             [$createdFreightOrder->getId()],
-            $foundCarrier->getOrderIds()
+            $foundCarrier->getFreightOrderIds()
         );
     }
 }

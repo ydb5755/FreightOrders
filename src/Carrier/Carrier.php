@@ -13,7 +13,7 @@ class Carrier
         private string $notes,
         private string $loadProfile,
         private array $countriesServing,
-        private array $freightOrders,
+        private array $freightOrderIds,
     ) {}
 
     public function getId(): ?int
@@ -61,8 +61,8 @@ class Carrier
         return $this->countriesServing;
     }
 
-    public function getFreightOrders(): array
+    public function getFreightOrderIds(): array
     {
-        return $this->freightOrders;
+        return $this->freightOrderIds;
     }
 }
