@@ -18,6 +18,7 @@ class GetAllCarriersTest extends TestCase
         $notes = 'some notes';
         $loadProfile = 'LTL/FTL';
         $countriesServing = ['USA', 'FRA', 'UK'];
+        $freightOrders = [];
         $repo = new FakeCarrierRepository();
         $repo->save(new Carrier(
             0,
@@ -28,6 +29,7 @@ class GetAllCarriersTest extends TestCase
             $notes,
             $loadProfile,
             $countriesServing,
+            $freightOrders,
         ));
         $useCase = new GetAllCarriers($repo);
         $response = $useCase->execute();
@@ -41,6 +43,7 @@ class GetAllCarriersTest extends TestCase
                 $notes,
                 $loadProfile,
                 $countriesServing,
+                $freightOrders,
             )],
             $response
         );

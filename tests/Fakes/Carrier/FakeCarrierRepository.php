@@ -25,6 +25,7 @@ class FakeCarrierRepository implements CarrierRepository
                     $carrier->getNotes(),
                     $carrier->getLoadProfile(),
                     $carrier->getCountriesServing(),
+                    $carrier->getFreightOrders(),
                 );
             }
         }
@@ -50,6 +51,7 @@ class FakeCarrierRepository implements CarrierRepository
             $carrier->getNotes(),
             $carrier->getLoadProfile(),
             $carrier->getCountriesServing(),
+            $carrier->getFreightOrders(),
         );
     }
 
@@ -70,6 +72,7 @@ class FakeCarrierRepository implements CarrierRepository
                 $carrier->getNotes(),
                 $carrier->getLoadProfile(),
                 $carrier->getCountriesServing(),
+                $carrier->getFreightOrders(),
             );
         }, $this->existingCarriers);
     }
