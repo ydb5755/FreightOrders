@@ -65,4 +65,9 @@ class Carrier
     {
         return $this->freightOrderIds;
     }
+
+    public function setFreightOrderIds(array $ids): void
+    {
+        $this->freightOrderIds = $ids;
+    }
 }
