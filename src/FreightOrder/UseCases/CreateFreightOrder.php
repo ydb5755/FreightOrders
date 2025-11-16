@@ -25,6 +25,9 @@ class CreateFreightOrder
         return $savedFreightOrder;
     }
 
+    /**
+     * @param int[] $carrierIds
+     */
     private function updateCarriers(
         array $carrierIds,
         int $freightOrderId
