@@ -20,7 +20,10 @@ class CreateFreightOrderTest extends TestCase
     {
         $this->freightOrderRepo = new FakeFreightOrderRepository();
         $this->carrierRepo = new FakeCarrierRepository();
-        $this->useCase = new CreateFreightOrder($this->freightOrderRepo);
+        $this->useCase = new CreateFreightOrder(
+            $this->freightOrderRepo,
+            $this->carrierRepo,
+        );
     }
 
     public function test_create_freight_order(): void
