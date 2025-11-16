@@ -33,7 +33,7 @@ class CreateFreightOrderTest extends TestCase
             loadDetails: 'some details',
             notes: 'some notes',
             fileAttachments: ['path/to/file', 'another/path/file'],
-            carrierIds: [0, 1, 2],
+            carrierIds: [],
         );
         $createdFreightOrder = $this->useCase->execute($dto);
         $foundFreightOrder = $this->freightOrderRepo->find(
