@@ -17,7 +17,7 @@ class CreateFreightOrder
         CreateFreightOrderRequestDTO $dto,
     ): FreightOrder {
         $savedFreightOrder = $this->saveFreightOrder($dto);
-        $this->updateCarriers(
+        $this->handleCarrierActions(
             $dto->carrierIds,
             $savedFreightOrder->getId()
         );
@@ -28,17 +28,24 @@ class CreateFreightOrder
     /**
      * @param int[] $carrierIds
      */
-    private function updateCarriers(
+    private function handleCarrierActions(
         array $carrierIds,
         int $freightOrderId
     ): void {
         foreach ($carrierIds as $carrierId) {
-            $carrier = $this->carrierRepo->find($carrierId);
-            $carrierFreightOrderIds = $carrier->getFreightOrderIds();
-            $carrierFreightOrderIds[] = $freightOrderId;
-            $carrier->setFreightOrderIds($carrierFreightOrderIds);
-            $this->carrierRepo->save($carrier);
+            $this->updateCarrierOrderIds($carrierId, $freightOrderId);
         }
+    }
+
+    private function updateCarrierOrderIds(
+        int $carrierId,
+        int $freightOrderId
+    ): void {
+        $carrier = $this->carrierRepo->find($carrierId);
+        $carrierFreightOrderIds = $carrier->getFreightOrderIds();
+        $carrierFreightOrderIds[] = $freightOrderId;
+        $carrier->setFreightOrderIds($carrierFreightOrderIds);
+        $this->carrierRepo->save($carrier);
     }
 
     private function saveFreightOrder(
