@@ -19,14 +19,14 @@ class CreateFreightOrder
 
     public function execute(
         CreateFreightOrderRequestDTO $dto,
-    ): FreightOrder {
+    ): CreateFreightOrderResponseDTO {
         $savedFreightOrder = $this->saveFreightOrder($dto);
         $this->handleCarrierActions(
             $dto->carrierIds,
             $savedFreightOrder,
         );
 
-        return $savedFreightOrder;
+        return new CreateFreightOrderResponseDTO($savedFreightOrder);
     }
 
     /**

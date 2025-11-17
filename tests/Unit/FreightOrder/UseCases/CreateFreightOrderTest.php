@@ -42,7 +42,8 @@ class CreateFreightOrderTest extends TestCase
             fileAttachments: ['path/to/file', 'another/path/file'],
             carrierIds: [],
         );
-        $createdFreightOrder = $this->useCase->execute($dto);
+        $response = $this->useCase->execute($dto);
+        $createdFreightOrder = $response->freightOrder;
         $foundFreightOrder = $this->freightOrderRepo->find(
             $createdFreightOrder->getId()
         );
@@ -81,7 +82,8 @@ class CreateFreightOrderTest extends TestCase
             fileAttachments: ['path/to/file', 'another/path/file'],
             carrierIds: [$carrierId],
         );
-        $createdFreightOrder = $this->useCase->execute($dto);
+        $response = $this->useCase->execute($dto);
+        $createdFreightOrder = $response->freightOrder;
         $foundCarrier = $this->carrierRepo->find($carrierId);
         $this->assertEquals(
             [$createdFreightOrder->getId()],
@@ -113,7 +115,7 @@ class CreateFreightOrderTest extends TestCase
             fileAttachments: ['path/to/file', 'another/path/file'],
             carrierIds: [$carrierId],
         );
-        $createdFreightOrder = $this->useCase->execute($dto);
+        $this->useCase->execute($dto);
         $this->assertEquals(1, $this->emailer->getSentEmailCount());
     }
 }
