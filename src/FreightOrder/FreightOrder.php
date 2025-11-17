@@ -6,6 +6,10 @@ use DateTime;
 
 class FreightOrder
 {
+    /**
+     * @param string[] $fileAttachments
+     * @param int[] $carrierIds
+     */
     public function __construct(
         private ?int $id,
         private string $shipFrom,
