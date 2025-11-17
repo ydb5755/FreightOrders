@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\FreightOrder\UseCases;
 
+use FreightQuote\Bid\Bid;
 use Tests\Fakes\Email\FakeEmailer;
 use FreightQuote\Carrier\Carrier;
 use PHPUnit\Framework\TestCase;
@@ -9,6 +10,7 @@ use FreightQuote\FreightOrder\UseCases\CreateFreightOrder;
 use FreightQuote\FreightOrder\UseCases\CreateFreightOrderRequestDTO;
 use Tests\Fakes\Carrier\FakeCarrierRepository;
 use Tests\Fakes\FreightOrder\FakeFreightOrderRepository;
+use Tests\Fakes\Bid\FakeBidRepository;
 use DateTime;
 
 class CreateFreightOrderTest extends TestCase
@@ -16,6 +18,7 @@ class CreateFreightOrderTest extends TestCase
     private FakeEmailer $emailer;
     private FakeFreightOrderRepository $freightOrderRepo;
     private FakeCarrierRepository $carrierRepo;
+    private FakeBidRepository $bidRepo;
     private CreateFreightOrder $useCase;
 
     public function setUp(): void
@@ -23,9 +26,11 @@ class CreateFreightOrderTest extends TestCase
         $this->emailer = new FakeEmailer();
         $this->freightOrderRepo = new FakeFreightOrderRepository();
         $this->carrierRepo = new FakeCarrierRepository();
+        $this->bidRepo = new FakeBidRepository();
         $this->useCase = new CreateFreightOrder(
             $this->freightOrderRepo,
             $this->carrierRepo,
+            $this->bidRepo,
             $this->emailer,
         );
     }
@@ -117,5 +122,39 @@ class CreateFreightOrderTest extends TestCase
         );
         $this->useCase->execute($dto);
         $this->assertEquals(1, $this->emailer->getSentEmailCount());
+    }
+
+    public function test_bid_is_created(): void
+    {
+        $carrierId = 0;
+        $this->carrierRepo->save(new Carrier(
+            id: $carrierId,
+            email: 'test@email.com',
+            companyName: 'company name',
+            contactPerson: 'person',
+            phoneNumber: '123456798',
+            notes: 'some notes',
+            loadProfile: 'LTL/FTL',
+            countriesServing: ['USA'],
+            freightOrderIds: [],
+        ));
+        $dto = new CreateFreightOrderRequestDTO(
+            shipFrom: 'ny',
+            shipTo: 'nj',
+            pickupDate: new DateTime('+5 days'),
+            deliveryDeadline: new DateTime('+10 days'),
+            loadDetails: 'some details',
+            notes: 'some notes',
+            fileAttachments: ['path/to/file', 'another/path/file'],
+            carrierIds: [$carrierId],
+        );
+        $response = $this->useCase->execute($dto);
+        $bid = $response->bidsCreated[0];
+        $this->assertInstanceOf(Bid::class, $bid);
+        $this->assertEquals(
+            $response->freightOrder->getId(),
+            $bid->getFreightOrderId()
+        );
+        $this->assertEquals($carrierId, $bid->getCarrierId());
     }
 }

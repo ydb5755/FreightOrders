@@ -2,6 +2,8 @@
 
 namespace FreightQuote\FreightOrder\UseCases;
 
+use FreightQuote\Bid\Bid;
+use FreightQuote\Bid\BidRepository;
 use FreightQuote\Carrier\Carrier;
 use FreightQuote\Carrier\CarrierRepository;
 use FreightQuote\Email\Email;
@@ -14,6 +16,7 @@ class CreateFreightOrder
     public function __construct(
         private FreightOrderRepository $freightOrderRepo,
         private CarrierRepository $carrierRepo,
+        private BidRepository $bidRepo,
         private Emailer $emailer,
     ) {}
 
@@ -21,26 +24,51 @@ class CreateFreightOrder
         CreateFreightOrderRequestDTO $dto,
     ): CreateFreightOrderResponseDTO {
         $savedFreightOrder = $this->saveFreightOrder($dto);
-        $this->handleCarrierActions(
+        $bidsCreated = $this->handleCarrierActions(
             $dto->carrierIds,
             $savedFreightOrder,
         );
 
-        return new CreateFreightOrderResponseDTO($savedFreightOrder);
+        return new CreateFreightOrderResponseDTO(
+            $savedFreightOrder,
+            $bidsCreated
+        );
     }
 
     /**
      * @param int[] $carrierIds
+     * @return Bid[]
      */
     private function handleCarrierActions(
         array $carrierIds,
-        FreightOrder $freightOrder
-    ): void {
+        FreightOrder $freightOrder,
+    ): array {
+        $bidsCreated = [];
         foreach ($carrierIds as $carrierId) {
             $carrier = $this->carrierRepo->find($carrierId);
-            $this->updateCarrierOrderIds($carrier, $freightOrder->getId());
+            $freightOrderId = $freightOrder->getId();
+            $this->updateCarrierOrderIds($carrier, $freightOrderId);
             $this->sendEmail($carrier->getEmail(), $freightOrder);
+            $bidsCreated[] = $this->createBid(
+                $freightOrderId,
+                $carrier->getId(),
+            );
         }
+
+        return $bidsCreated;
+    }
+
+    private function createBid(
+        int $freightOrderId,
+        int $carrierId
+    ): Bid {
+        return $this->bidRepo->save(
+            new Bid(
+                id: null,
+                freightOrderId: $freightOrderId,
+                carrierId: $carrierId,
+            )
+        );
     }
 
     private function sendEmail(string $emailAddress, FreightOrder $freightOrder): void
