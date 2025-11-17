@@ -2,6 +2,7 @@
 
 namespace FreightQuote\FreightOrder\UseCases;
 
+use FreightQuote\Carrier\Carrier;
 use FreightQuote\Carrier\CarrierRepository;
 use FreightQuote\FreightOrder\FreightOrderRepository;
 use FreightQuote\FreightOrder\FreightOrder;
@@ -33,15 +34,15 @@ class CreateFreightOrder
         int $freightOrderId
     ): void {
         foreach ($carrierIds as $carrierId) {
-            $this->updateCarrierOrderIds($carrierId, $freightOrderId);
+            $carrier = $this->carrierRepo->find($carrierId);
+            $this->updateCarrierOrderIds($carrier, $freightOrderId);
         }
     }
 
     private function updateCarrierOrderIds(
-        int $carrierId,
+        Carrier $carrier,
         int $freightOrderId
     ): void {
-        $carrier = $this->carrierRepo->find($carrierId);
         $carrierFreightOrderIds = $carrier->getFreightOrderIds();
         $carrierFreightOrderIds[] = $freightOrderId;
         $carrier->setFreightOrderIds($carrierFreightOrderIds);
