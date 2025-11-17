@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\FreightOrder\UseCases;
 
+use Tests\Fakes\Email\FakeEmailer;
 use FreightQuote\Carrier\Carrier;
 use PHPUnit\Framework\TestCase;
 use FreightQuote\FreightOrder\UseCases\CreateFreightOrder;
@@ -12,17 +13,20 @@ use DateTime;
 
 class CreateFreightOrderTest extends TestCase
 {
+    private FakeEmailer $emailer;
     private FakeFreightOrderRepository $freightOrderRepo;
     private FakeCarrierRepository $carrierRepo;
     private CreateFreightOrder $useCase;
 
     public function setUp(): void
     {
+        $this->emailer = new FakeEmailer();
         $this->freightOrderRepo = new FakeFreightOrderRepository();
         $this->carrierRepo = new FakeCarrierRepository();
         $this->useCase = new CreateFreightOrder(
             $this->freightOrderRepo,
             $this->carrierRepo,
+            $this->emailer,
         );
     }
 
@@ -83,5 +87,33 @@ class CreateFreightOrderTest extends TestCase
             [$createdFreightOrder->getId()],
             $foundCarrier->getFreightOrderIds()
         );
+    }
+
+    public function test_email_is_sent(): void
+    {
+        $carrierId = 0;
+        $this->carrierRepo->save(new Carrier(
+            id: $carrierId,
+            email: 'test@email.com',
+            companyName: 'company name',
+            contactPerson: 'person',
+            phoneNumber: '123456798',
+            notes: 'some notes',
+            loadProfile: 'LTL/FTL',
+            countriesServing: ['USA'],
+            freightOrderIds: [],
+        ));
+        $dto = new CreateFreightOrderRequestDTO(
+            shipFrom: 'ny',
+            shipTo: 'nj',
+            pickupDate: new DateTime('+5 days'),
+            deliveryDeadline: new DateTime('+10 days'),
+            loadDetails: 'some details',
+            notes: 'some notes',
+            fileAttachments: ['path/to/file', 'another/path/file'],
+            carrierIds: [$carrierId],
+        );
+        $createdFreightOrder = $this->useCase->execute($dto);
+        $this->assertEquals(1, $this->emailer->getSentEmailCount());
     }
 }
