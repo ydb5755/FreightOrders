@@ -4,6 +4,9 @@ namespace FreightQuote\Carrier;
 
 class Carrier
 {
+    /**
+     * @param string[] $countriesServing
+     */
     public function __construct(
         private ?int $id,
         private string $email,
