@@ -45,9 +45,9 @@ class FakeBidRepository implements BidRepository
 
     private function getUniqueId(): string
     {
-        $id = uniqid('', true);
+        $id = bin2hex(random_bytes(10));
         while ($this->find($id) !== null) {
-            $id = uniqid('', true);
+            $id = bin2hex(random_bytes(10));
         }
         return $id;
     }
