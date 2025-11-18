@@ -89,6 +89,42 @@ class CreateFreightOrderTest extends TestCase
         $this->assertEquals(1, $this->emailer->getSentEmailCount());
     }
 
+    public function test_multiple_emails_are_sent(): void
+    {
+        $this->carrierRepo->save(new Carrier(
+            id: 0,
+            email: 'test@email.com',
+            companyName: 'company name',
+            contactPerson: 'person',
+            phoneNumber: '123456798',
+            notes: 'some notes',
+            loadProfile: 'LTL/FTL',
+            countriesServing: ['USA'],
+        ));
+        $this->carrierRepo->save(new Carrier(
+            id: 1,
+            email: 'test@email.com',
+            companyName: 'company name',
+            contactPerson: 'person',
+            phoneNumber: '123456798',
+            notes: 'some notes',
+            loadProfile: 'LTL/FTL',
+            countriesServing: ['USA'],
+        ));
+        $dto = new CreateFreightOrderRequestDTO(
+            shipFrom: 'ny',
+            shipTo: 'nj',
+            pickupDate: new DateTime('+5 days'),
+            deliveryDeadline: new DateTime('+10 days'),
+            loadDetails: 'some details',
+            notes: 'some notes',
+            fileAttachments: ['path/to/file', 'another/path/file'],
+            carrierIds: [0, 1],
+        );
+        $this->useCase->execute($dto);
+        $this->assertEquals(2, $this->emailer->getSentEmailCount());
+    }
+
     public function test_bid_is_created(): void
     {
         $carrierId = 0;
