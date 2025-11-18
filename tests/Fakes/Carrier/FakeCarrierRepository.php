@@ -73,4 +73,24 @@ class FakeCarrierRepository implements CarrierRepository
             );
         }, $this->existingCarriers);
     }
+
+    public function findByEmail(string $email): ?Carrier
+    {
+        foreach ($this->existingCarriers as $carrier) {
+            if ($carrier->getEmail() === $email) {
+                return new Carrier(
+                    $carrier->getId(),
+                    $email,
+                    $carrier->getCompanyName(),
+                    $carrier->getContactPerson(),
+                    $carrier->getPhoneNumber(),
+                    $carrier->getNotes(),
+                    $carrier->getLoadProfile(),
+                    $carrier->getCountriesServing(),
+                );
+            }
+        }
+
+        return null;
+    }
 }
