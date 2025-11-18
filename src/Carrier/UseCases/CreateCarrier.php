@@ -8,21 +8,20 @@ use FreightQuote\Carrier\CarrierRepository;
 class CreateCarrier
 {
     public function __construct(
-        private CreateCarrierRequest $dto,
         private CarrierRepository $carrierRepo,
     ) {}
 
-    public function execute(): Carrier
+    public function execute(CreateCarrierRequest $dto): Carrier
     {
         $carrier = new Carrier(
             null,
-            $this->dto->email,
-            $this->dto->companyName,
-            $this->dto->contactPerson,
-            $this->dto->phoneNumber,
-            $this->dto->notes,
-            $this->dto->loadProfile,
-            $this->dto->countriesServing,
+            $dto->email,
+            $dto->companyName,
+            $dto->contactPerson,
+            $dto->phoneNumber,
+            $dto->notes,
+            $dto->loadProfile,
+            $dto->countriesServing,
             [],
         );
 

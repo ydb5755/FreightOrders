@@ -28,8 +28,8 @@ class CreateCarrierTest extends TestCase
             $loadProfile,
             $countriesServing,
         );
-        $useCase = new CreateCarrier($dto, $carrierRepo);
-        $response = $useCase->execute();
+        $useCase = new CreateCarrier($carrierRepo);
+        $response = $useCase->execute($dto);
         $foundCarrier = $carrierRepo->find($response->getId());
         $this->assertEquals($email, $foundCarrier->getEmail());
         $this->assertEquals($company, $foundCarrier->getCompanyName());
