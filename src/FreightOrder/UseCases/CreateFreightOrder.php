@@ -47,11 +47,16 @@ class CreateFreightOrder
         foreach ($carrierIds as $carrierId) {
             $carrier = $this->carrierRepo->find($carrierId);
             $freightOrderId = $freightOrder->getId();
-            $this->sendEmail($carrier->getEmail(), $freightOrder);
-            $bidsCreated[] = $this->createBid(
+            $createdBid = $this->createBid(
                 $freightOrderId,
                 $carrier->getId(),
             );
+            $this->sendEmail(
+                $carrier->getEmail(),
+                $freightOrder,
+                $createdBid->getBidLink(),
+            );
+            $bidsCreated[] = $createdBid;
         }
 
         return $bidsCreated;
@@ -70,12 +75,15 @@ class CreateFreightOrder
         );
     }
 
-    private function sendEmail(string $emailAddress, FreightOrder $freightOrder): void
-    {
+    private function sendEmail(
+        string $emailAddress,
+        FreightOrder $freightOrder,
+        string $bidLink,
+    ): void {
         $email = new Email();
         $email->addRecipient($emailAddress);
         $email->setSubject('Freight Order Request');
-        $email->setBody('Please fill out your bid at this link xxxxxxx');
+        $email->setBody("Please fill out your bid at this link $bidLink");
         foreach ($freightOrder->getFileAttachments() as $file) {
             $email->addAttachment($file);
         }
