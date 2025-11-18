@@ -60,40 +60,6 @@ class CreateFreightOrderTest extends TestCase
         $this->assertEquals($dto->loadDetails, $foundFreightOrder->getLoadDetails());
         $this->assertEquals($dto->notes, $foundFreightOrder->getNotes());
         $this->assertEquals($dto->fileAttachments, $foundFreightOrder->getFileAttachments());
-        $this->assertEquals($dto->carrierIds, $foundFreightOrder->getCarrierIds());
-    }
-
-    public function test_carrier_is_connected_to_order(): void
-    {
-        $carrierId = 0;
-        $this->carrierRepo->save(new Carrier(
-            id: $carrierId,
-            email: 'test@email.com',
-            companyName: 'company name',
-            contactPerson: 'person',
-            phoneNumber: '123456798',
-            notes: 'some notes',
-            loadProfile: 'LTL/FTL',
-            countriesServing: ['USA'],
-            freightOrderIds: [],
-        ));
-        $dto = new CreateFreightOrderRequestDTO(
-            shipFrom: 'ny',
-            shipTo: 'nj',
-            pickupDate: new DateTime('+5 days'),
-            deliveryDeadline: new DateTime('+10 days'),
-            loadDetails: 'some details',
-            notes: 'some notes',
-            fileAttachments: ['path/to/file', 'another/path/file'],
-            carrierIds: [$carrierId],
-        );
-        $response = $this->useCase->execute($dto);
-        $createdFreightOrder = $response->freightOrder;
-        $foundCarrier = $this->carrierRepo->find($carrierId);
-        $this->assertEquals(
-            [$createdFreightOrder->getId()],
-            $foundCarrier->getFreightOrderIds()
-        );
     }
 
     public function test_email_is_sent(): void
@@ -108,7 +74,6 @@ class CreateFreightOrderTest extends TestCase
             notes: 'some notes',
             loadProfile: 'LTL/FTL',
             countriesServing: ['USA'],
-            freightOrderIds: [],
         ));
         $dto = new CreateFreightOrderRequestDTO(
             shipFrom: 'ny',
@@ -136,7 +101,6 @@ class CreateFreightOrderTest extends TestCase
             notes: 'some notes',
             loadProfile: 'LTL/FTL',
             countriesServing: ['USA'],
-            freightOrderIds: [],
         ));
         $dto = new CreateFreightOrderRequestDTO(
             shipFrom: 'ny',

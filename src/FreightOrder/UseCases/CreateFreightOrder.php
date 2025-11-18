@@ -47,7 +47,6 @@ class CreateFreightOrder
         foreach ($carrierIds as $carrierId) {
             $carrier = $this->carrierRepo->find($carrierId);
             $freightOrderId = $freightOrder->getId();
-            $this->updateCarrierOrderIds($carrier, $freightOrderId);
             $this->sendEmail($carrier->getEmail(), $freightOrder);
             $bidsCreated[] = $this->createBid(
                 $freightOrderId,
@@ -81,16 +80,6 @@ class CreateFreightOrder
             $email->addAttachment($file);
         }
         $this->emailer->send($email);
-    }
-
-    private function updateCarrierOrderIds(
-        Carrier $carrier,
-        int $freightOrderId
-    ): void {
-        $carrierFreightOrderIds = $carrier->getFreightOrderIds();
-        $carrierFreightOrderIds[] = $freightOrderId;
-        $carrier->setFreightOrderIds($carrierFreightOrderIds);
-        $this->carrierRepo->save($carrier);
     }
 
     private function saveFreightOrder(
