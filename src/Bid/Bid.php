@@ -29,4 +29,13 @@ class Bid
     {
         return $this->carrierId;
     }
+
+    public function getBidLink(): ?string
+    {
+        $id = $this->id;
+        if ($id === null) {
+            return null;
+        }
+        return "https://freightquotes.com/bid/$id";
+    }
 }
