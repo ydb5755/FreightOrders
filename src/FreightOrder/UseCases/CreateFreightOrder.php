@@ -4,7 +4,6 @@ namespace FreightQuote\FreightOrder\UseCases;
 
 use FreightQuote\Bid\Bid;
 use FreightQuote\Bid\BidRepository;
-use FreightQuote\Carrier\Carrier;
 use FreightQuote\Carrier\CarrierRepository;
 use FreightQuote\Email\Email;
 use FreightQuote\Email\Emailer;
