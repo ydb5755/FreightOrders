@@ -21,6 +21,10 @@ class GetBidForCarrier
         if ($bid === null) {
             throw new InvalidArgumentException('Bid not found!');
         }
+        if ($bid->getWasOpened() === false) {
+            $bid->setWasOpened(true);
+            $this->bidRepo->save($bid);
+        }
         return $bid;
     }
 }
