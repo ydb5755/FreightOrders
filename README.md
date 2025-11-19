@@ -88,19 +88,18 @@ Fields to enter:
 
 Freight cost
 
-Estimated pickup and delivery dates
-
 Notes / conditions
 
+Add file
 
 Submit Quote button
-
 
 Upon submission:
 
 Carrier’s quote is recorded in the system.
 
-Confirmation message shown to carrier.
+Confirmation message shown to carrier and redirected
+to bid summary page.
 
 
 
@@ -110,9 +109,19 @@ Operations dashboard shows:
 
 List of all freight quote requests
 
-Status: Open / Closed / Awarded
+From and to location
 
-Number of carrier responses
+Date created
+
+How many people recieved the request
+
+How many people clicked on the email
+
+How many people submitted
+
+Ability to close request.
+
+If request is closed then will not accept bids.
 
 
 When a request is opened:
@@ -129,4 +138,4 @@ Delivery Date
 
 Notes
 
-Timestamp
+Date created
