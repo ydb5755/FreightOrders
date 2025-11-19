@@ -71,6 +71,7 @@ class CreateFreightOrder
                 id: null,
                 freightOrderId: $freightOrderId,
                 carrierId: $carrierId,
+                wasOpened: false,
             )
         );
     }

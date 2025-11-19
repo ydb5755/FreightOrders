@@ -25,6 +25,7 @@ class FakeBidRepository implements BidRepository
             $id,
             $bid->getFreightOrderId(),
             $bid->getCarrierId(),
+            $bid->getWasOpened(),
         );
     }
 
@@ -36,6 +37,7 @@ class FakeBidRepository implements BidRepository
                     $id,
                     $bid->getFreightOrderId(),
                     $bid->getCarrierId(),
+                    $bid->getWasOpened(),
                 );
             }
         }

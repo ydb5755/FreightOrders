@@ -8,6 +8,7 @@ class Bid
         private ?string $id,
         private int $freightOrderId,
         private int $carrierId,
+        private bool $wasOpened,
     ) {}
 
     public function getId(): ?string
@@ -37,5 +38,15 @@ class Bid
             return null;
         }
         return "https://freightquotes.com/bid/$id";
+    }
+
+    public function getWasOpened(): bool
+    {
+        return $this->wasOpened;
+    }
+
+    public function setWasOpened(bool $wasOpened): void
+    {
+        $this->wasOpened = $wasOpened;
     }
 }
