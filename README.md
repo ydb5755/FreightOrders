@@ -1,3 +1,18 @@
+
+
+# TODO
+ - Add cost, notes, file attachments, closed to bid entity
+   - cost = nullable int, notes = string, files = array, closed = bool
+ - Add date created to freight quote entity
+ - If bid == closed, do not show bid to carriers on future requests
+ - Make UpdateBid use case
+ - Make GetBidsOfFreightOrder use case
+ - Dashboard:
+   - Show open requests use case
+   - Show closed requests use case
+
+
+
 Freight Quote Request System – Functional Requirements Summary
 
 1. Objective
@@ -139,3 +154,4 @@ Delivery Date
 Notes
 
 Date created
+
