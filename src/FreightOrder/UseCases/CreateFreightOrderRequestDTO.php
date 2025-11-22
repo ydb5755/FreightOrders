@@ -15,5 +15,6 @@ class CreateFreightOrderRequestDTO
         public string $notes,
         public array $fileAttachments,
         public array $carrierIds,
+        public DateTime $dateCreated,
     ) {}
 }

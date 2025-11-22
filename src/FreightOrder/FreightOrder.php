@@ -18,6 +18,7 @@ class FreightOrder
         private string $loadDetails,
         private string $notes,
         private array $fileAttachments,
+        private DateTime $dateCreated,
     ) {}
 
     public function getId(): ?int
@@ -63,5 +64,10 @@ class FreightOrder
     public function getFileAttachments(): array
     {
         return $this->fileAttachments;
+    }
+
+    public function getDateCreated(): DateTime
+    {
+        return $this->dateCreated;
     }
 }

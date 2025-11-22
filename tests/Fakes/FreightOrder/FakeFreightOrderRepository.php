@@ -25,6 +25,7 @@ class FakeFreightOrderRepository implements FreightOrderRepository
                     $freightOrder->getLoadDetails(),
                     $freightOrder->getNotes(),
                     $freightOrder->getFileAttachments(),
+                    $freightOrder->getDateCreated(),
                 );
             }
         }
@@ -49,6 +50,7 @@ class FakeFreightOrderRepository implements FreightOrderRepository
             $freightOrder->getLoadDetails(),
             $freightOrder->getNotes(),
             $freightOrder->getFileAttachments(),
+            $freightOrder->getDateCreated(),
         );
     }
 

@@ -37,6 +37,7 @@ class CreateFreightOrderTest extends TestCase
 
     public function test_create_freight_order(): void
     {
+        $now = new DateTime();
         $dto = new CreateFreightOrderRequestDTO(
             shipFrom: 'ny',
             shipTo: 'nj',
@@ -46,6 +47,7 @@ class CreateFreightOrderTest extends TestCase
             notes: 'some notes',
             fileAttachments: ['path/to/file', 'another/path/file'],
             carrierIds: [],
+            dateCreated: $now,
         );
         $response = $this->useCase->execute($dto);
         $createdFreightOrder = $response->freightOrder;
@@ -60,6 +62,7 @@ class CreateFreightOrderTest extends TestCase
         $this->assertEquals($dto->loadDetails, $foundFreightOrder->getLoadDetails());
         $this->assertEquals($dto->notes, $foundFreightOrder->getNotes());
         $this->assertEquals($dto->fileAttachments, $foundFreightOrder->getFileAttachments());
+        $this->assertEquals($dto->dateCreated, $foundFreightOrder->getDateCreated());
     }
 
     public function test_email_is_sent(): void
@@ -84,6 +87,7 @@ class CreateFreightOrderTest extends TestCase
             notes: 'some notes',
             fileAttachments: ['path/to/file', 'another/path/file'],
             carrierIds: [$carrierId],
+            dateCreated: new DateTime(),
         );
         $this->useCase->execute($dto);
         $this->assertEquals(1, $this->emailer->getSentEmailCount());
@@ -120,6 +124,7 @@ class CreateFreightOrderTest extends TestCase
             notes: 'some notes',
             fileAttachments: ['path/to/file', 'another/path/file'],
             carrierIds: [0, 1],
+            dateCreated: new DateTime(),
         );
         $this->useCase->execute($dto);
         $this->assertEquals(2, $this->emailer->getSentEmailCount());
@@ -147,6 +152,7 @@ class CreateFreightOrderTest extends TestCase
             notes: 'some notes',
             fileAttachments: ['path/to/file', 'another/path/file'],
             carrierIds: [$carrierId],
+            dateCreated: new DateTime(),
         );
         $response = $this->useCase->execute($dto);
         $bid = $response->bidsCreated[0];

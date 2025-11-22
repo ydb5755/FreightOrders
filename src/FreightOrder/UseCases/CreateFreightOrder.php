@@ -107,6 +107,7 @@ class CreateFreightOrder
                 $dto->loadDetails,
                 $dto->notes,
                 $dto->fileAttachments,
+                $dto->dateCreated,
             ));
     }
 }
