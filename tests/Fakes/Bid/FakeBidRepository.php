@@ -26,6 +26,10 @@ class FakeBidRepository implements BidRepository
             $bid->getFreightOrderId(),
             $bid->getCarrierId(),
             $bid->getWasOpened(),
+            $bid->isClosed(),
+            $bid->getCost(),
+            $bid->getNotes(),
+            $bid->getFileAttachments(),
         );
     }
 
@@ -38,6 +42,10 @@ class FakeBidRepository implements BidRepository
                     $bid->getFreightOrderId(),
                     $bid->getCarrierId(),
                     $bid->getWasOpened(),
+                    $bid->isClosed(),
+                    $bid->getCost(),
+                    $bid->getNotes(),
+                    $bid->getFileAttachments(),
                 );
             }
         }

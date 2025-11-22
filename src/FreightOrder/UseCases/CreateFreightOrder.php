@@ -71,6 +71,10 @@ class CreateFreightOrder
                 freightOrderId: $freightOrderId,
                 carrierId: $carrierId,
                 wasOpened: false,
+                isClosed: false,
+                cost: null,
+                notes: null,
+                fileAttachments: null,
             )
         );
     }

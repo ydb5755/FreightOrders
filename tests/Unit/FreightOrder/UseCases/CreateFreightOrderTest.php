@@ -156,5 +156,9 @@ class CreateFreightOrderTest extends TestCase
             $bid->getFreightOrderId()
         );
         $this->assertEquals($carrierId, $bid->getCarrierId());
+        $this->assertEquals(null, $bid->getCost());
+        $this->assertEquals(null, $bid->getNotes());
+        $this->assertEquals(null, $bid->getFileAttachments());
+        $this->assertEquals(false, $bid->isClosed());
     }
 }

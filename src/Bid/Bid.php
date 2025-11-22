@@ -9,6 +9,10 @@ class Bid
         private int $freightOrderId,
         private int $carrierId,
         private bool $wasOpened,
+        private bool $isClosed,
+        private ?int $cost,
+        private ?string $notes,
+        private ?array $fileAttachments,
     ) {}
 
     public function getId(): ?string
@@ -48,5 +52,25 @@ class Bid
     public function setWasOpened(bool $wasOpened): void
     {
         $this->wasOpened = $wasOpened;
+    }
+
+    public function getCost(): ?int
+    {
+        return $this->cost;
+    }
+
+    public function getNotes(): ?string
+    {
+        return $this->notes;
+    }
+
+    public function getFileAttachments(): ?array
+    {
+        return $this->fileAttachments;
+    }
+
+    public function isClosed(): bool
+    {
+        return $this->isClosed;
     }
 }

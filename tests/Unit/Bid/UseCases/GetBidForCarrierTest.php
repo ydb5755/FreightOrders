@@ -31,7 +31,16 @@ class GetBidForCarrierTest extends TestCase
     public function test_first_view_flips_opened_flag(): void
     {
         $bidId = 'abcd';
-        $this->bidRepo->save(new Bid($bidId, 0, 0, false));
+        $this->bidRepo->save(new Bid(
+            $bidId,
+            0,
+            0,
+            false,
+            false,
+            null,
+            null,
+            null,
+        ));
         $foundBid = $this->useCase->execute(
             new GetBidForCarrierRequest($bidId)
         );

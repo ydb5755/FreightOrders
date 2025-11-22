@@ -1,8 +1,6 @@
 
 
 # TODO
- - Add cost, notes, file attachments, closed to bid entity
-   - cost = nullable int, notes = string, files = array, closed = bool
  - Add date created to freight quote entity
  - If bid == closed, do not show bid to carriers on future requests
  - Make UpdateBid use case
