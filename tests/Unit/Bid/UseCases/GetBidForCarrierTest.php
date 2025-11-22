@@ -25,7 +25,7 @@ class GetBidForCarrierTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $bidId = '12345abcd';
         $dto = new GetBidForCarrierRequest($bidId);
-        $foundBid = $this->useCase->execute($dto);
+        $this->useCase->execute($dto);
     }
 
     public function test_first_view_flips_opened_flag(): void
@@ -45,5 +45,22 @@ class GetBidForCarrierTest extends TestCase
             new GetBidForCarrierRequest($bidId)
         );
         $this->assertEquals(true, $foundBid->getWasOpened());
+    }
+
+    public function test_getting_closed_bid_returns_null(): void
+    {
+        $this->bidRepo->save(new Bid(
+            0,
+            0,
+            0,
+            false,
+            true,
+            null,
+            null,
+            null,
+        ));
+        $this->assertNull($this->useCase->execute(
+            new GetBidForCarrierRequest(0),
+        ));
     }
 }

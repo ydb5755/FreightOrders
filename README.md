@@ -1,7 +1,6 @@
 
 
 # TODO
- - If bid == closed, do not show bid to carriers on future requests
  - Make UpdateBid use case
  - Make GetBidsOfFreightOrder use case
  - Dashboard:
