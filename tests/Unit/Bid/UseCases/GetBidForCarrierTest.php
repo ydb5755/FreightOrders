@@ -5,6 +5,7 @@ namespace Tests\Unit\Bid\UseCases;
 use FreightQuote\Bid\Bid;
 use FreightQuote\Bid\UseCases\GetBidForCarrier;
 use FreightQuote\Bid\UseCases\GetBidForCarrierRequest;
+use FreightQuote\Bid\UseCases\GetBidForCarrierResponse;
 use PHPUnit\Framework\TestCase;
 use InvalidArgumentException;
 use Tests\Fakes\Bid\FakeBidRepository;
@@ -41,13 +42,13 @@ class GetBidForCarrierTest extends TestCase
             null,
             null,
         ));
-        $foundBid = $this->useCase->execute(
+        $response = $this->useCase->execute(
             new GetBidForCarrierRequest($bidId)
         );
-        $this->assertEquals(true, $foundBid->getWasOpened());
+        $this->assertEquals(true, $response->bid->getWasOpened());
     }
 
-    public function test_getting_closed_bid_returns_null(): void
+    public function test_getting_closed_bid_returns_response_with_null_bid(): void
     {
         $this->bidRepo->save(new Bid(
             0,
@@ -59,8 +60,14 @@ class GetBidForCarrierTest extends TestCase
             null,
             null,
         ));
-        $this->assertNull($this->useCase->execute(
+        $response = $this->useCase->execute(
             new GetBidForCarrierRequest(0),
-        ));
+        );
+        $this->assertInstanceOf(
+            GetBidForCarrierResponse::class,
+            $response
+        );
+        $this->assertNull($response->bid);
+        $this->assertTrue($response->isClosed);
     }
 }
