@@ -59,9 +59,19 @@ class Bid
         return $this->cost;
     }
 
+    public function setCost(int $cost): void
+    {
+        $this->cost = $cost;
+    }
+
     public function getNotes(): ?string
     {
         return $this->notes;
+    }
+
+    public function setNotes(string $notes): void
+    {
+        $this->notes = $notes;
     }
 
     public function getFileAttachments(): ?array
@@ -69,8 +79,18 @@ class Bid
         return $this->fileAttachments;
     }
 
+    public function setFileAttachments(array $attachments): void
+    {
+        $this->fileAttachments = $attachments;
+    }
+
     public function isClosed(): bool
     {
         return $this->isClosed;
+    }
+
+    public function setIsClosed(bool $isClosed): void
+    {
+        $this->isClosed = $isClosed;
     }
 }
