@@ -1,7 +1,6 @@
 
 
 # TODO
- - Make UpdateBid use case
  - Make GetBidsOfFreightOrder use case
  - Dashboard:
    - Show open requests use case

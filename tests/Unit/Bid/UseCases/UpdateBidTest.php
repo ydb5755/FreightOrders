@@ -19,12 +19,11 @@ class UpdateBidTest extends TestCase
         $useCase = new UpdateBid($bidRepo);
         $dto = new UpdateBidRequest(
             bidId: 0,
-            data: [
-                'isClosed' => true,
-                'cost' => 1,
-                'notes' => 'some notes',
-                'fileAttachments' => ['/path/to/file']
-            ],
+            isClosed: true,
+            cost: 1,
+            notes: 'some notes',
+            fileAttachments: ['/path/to/file'],
+            
         );
         $useCase->execute($dto);
         $bid = $bidRepo->find(0);

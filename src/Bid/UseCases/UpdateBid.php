@@ -13,10 +13,10 @@ class UpdateBid
     public function execute(UpdateBidRequest $dto): void
     {
         $bid = $this->bidRepo->find($dto->bidId);
-        $bid->setCost($dto->data['cost']);
-        $bid->setIsClosed($dto->data['isClosed']);
-        $bid->setNotes($dto->data['notes']);
-        $bid->setFileAttachments($dto->data['fileAttachments']);
+        $bid->setCost($dto->cost);
+        $bid->setIsClosed($dto->isClosed);
+        $bid->setNotes($dto->notes);
+        $bid->setFileAttachments($dto->fileAttachments);
         $this->bidRepo->save($bid);
     }
 }
